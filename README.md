@@ -5,3 +5,6 @@ The Strategy Pattern defines a family of algorithms, encapsulates each one, and 
 Strategy lets the algorithm vary independently from clients that use it.
 
 (Composition vs. inheritance)
+
+Publishers + Subscribers = Observer Pattern (One to many relationship)
+
