@@ -1,34 +1,31 @@
 package main.java.weatherstationexample;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class WeatherData implements Subject {
+public class WeatherData extends Observable {
     private ArrayList<Observer> observers;
     private float temperature;
     private float humidity;
     private float pressure;
 
-    public WeatherData() {
-        observers = new ArrayList<>();
+    public float getTemperature() {
+        return temperature;
     }
 
-    @Override
-    public void registerObserver(Observer o) {
-        observers.add(o);
+    public float getHumidity() {
+        return humidity;
     }
 
-    @Override
-    public void removeObserver(Observer o) {
-        observers.remove(o);
+    public float getPressure() {
+        return pressure;
     }
 
-    @Override
-    public void notifyObservers() {
-        observers.stream()
-                .forEach(observer -> observer.update(temperature, humidity, pressure));
-    }
+    public WeatherData() { }
 
     public void measurementsChanged() {
+        setChanged();
         notifyObservers();
     }
 

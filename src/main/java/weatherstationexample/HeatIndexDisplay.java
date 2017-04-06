@@ -1,27 +1,18 @@
 package main.java.weatherstationexample;
 
-/**
- * Created by prs on 4/5/17.
- */
+import java.util.Observable;
+import java.util.Observer;
+
 public class HeatIndexDisplay implements DisplayElement, Observer {
 
+    private Observable observable;
     private float temperature;
     private float humidity;
     private float hIndex;
 
-    private Subject weatherData;
-
-    public HeatIndexDisplay(Subject weatherData) {
-        this.weatherData = weatherData;
-        weatherData.registerObserver(this);
-    }
-
-    @Override
-    public void update(float temp, float humidity, float pressure) {
-        this.temperature = temp;
-        this.humidity = humidity;
-        hIndex = calculateHeatIndex();
-        display();
+    public HeatIndexDisplay(Observable observable) {
+        this.observable = observable;
+        observable.addObserver(this);
     }
 
     @Override
@@ -40,5 +31,16 @@ public class HeatIndexDisplay implements DisplayElement, Observer {
         hIndex = hIndex - 1.99f * (float)Math.pow(10, -6) * temperature * temperature * humidity * humidity;
 
         return hIndex;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof WeatherData) {
+            WeatherData weatherData = (WeatherData) o;
+            this.temperature = weatherData.getTemperature();
+            this.humidity = weatherData.getHumidity();
+            this.hIndex = calculateHeatIndex();
+            display();
+        }
     }
 }
