@@ -14,6 +14,8 @@ Design Principles:
 - Classes should be open for extension, but closed for modification.
 - Favor composition over inheritance.
 - Program to an interface.
+- Encapsulate what varies.
+- Strive for loosely coupled designs between objects that interact.
 
 The Decorator Pattern: attaches additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending
 functionality.
